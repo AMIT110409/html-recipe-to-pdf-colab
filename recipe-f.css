@@ -1,0 +1,389 @@
+@import url("https://fonts.googleapis.com/css?family=Afacad");
+
+*,
+*::before,
+*::after {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+:root {
+    --muted: #6b7280;
+    --rule: #cccccc;
+    --accent: #000000;
+    --bg: #eeeeee;
+    --card-br: 10px;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Gotham, "Afacad", Arial, sans-serif;
+    line-height: 1.4;
+    color: var(--accent);
+}
+
+@page {
+  size: A4;
+  margin: 0.5in 0.5in 1.4in 0.5in;  /* Increased bottom margin for footer */
+  @bottom-center {
+    content: "Cautionary Note: While all products with gluten containing ingredients are not allowed on Gluten Restricted, this does not mean the products are Gluten Free as certified by the Canadian Celiac Association. Any changes from the Gluten Restricted menu and/or recipes, such as (a) changes to meet local and/or residents' preferences (b) changes to product, ingredient and/or supplier substitutions or (c) adding a custom recipe, may result in gluten contained in the Gluten Restricted menu or recipes. Please ensure you check all list of ingredients on manufacturers' food labels prior to using the Gluten Restricted menu.\A © Copyright 2025 - Generated on [DYNAMIC_DATETIME]\A\A Page " counter(page) " of " counter(pages);
+    font-size: 12px;
+    color: #6b7280;
+    background-color: #f9f9f9;
+    padding: 10px 5px;
+    border-top: 1px solid #cccccc;
+    line-height: 1.3;
+    text-align: center;
+    white-space: pre-wrap;
+  }
+}
+
+/* Hide the footer element since we're using CSS content instead */
+#footer-note {
+  display: none;
+}
+
+
+main {
+    padding: 0; /* Rely on page margin for margins */
+    min-height: calc(100% - 1in); /* Leave space for footer */
+    box-sizing: border-box;
+}
+
+/* HEADER */
+.header {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 11px;      /* tiny reduction to offset bigger logo */
+    margin-bottom: 5px;        /* keep overall height stable */
+    page-break-after: avoid;
+    page-break-inside: avoid;
+}
+
+.header .recipe-name {
+  display: flex;
+  align-items: flex-start;      /* Align top so wrap looks natural */
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;              /* Allow heading to split into two lines */
+  width: 100%;
+}
+
+.header .recipe-name h1 {
+  margin: 0;
+  font-size: 1.85rem;       /* slightly smaller to fit two lines without pushing */
+  line-height: 1.06;        /* compact line-height */
+  font-weight: 500;
+  flex: 1 1 calc(100% - 180px); /* Reserve space for logo so heading wraps */
+  max-width: calc(100% - 180px);
+  min-width: 520px;         /* Bias toward two lines on desktop width */
+  word-break: break-word;
+}
+
+.header .recipe-name img {
+  flex: 0 0 auto;
+  width: 175px;             /* Slight bump for better balance */
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+
+.header {
+  position: relative;
+}
+
+.recipe-name {
+  position: relative;
+}
+
+.recipe-name h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  word-break: break-word;
+}
+
+.recipe-logo {
+  position: absolute;
+  right: 0;
+  top: 50%;                 /* vertically center with two-line header */
+  transform: translateY(-50%);
+  width: 175px;             /* Match inline header image size */
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Prevents overlap with long headings */
+@media (max-width: 700px) {
+  .recipe-logo {
+    position: static;
+    width: 130px;
+    height: auto;
+    margin-top: 8px;
+  }
+}
+
+
+.header .sub {
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 6%;
+    text-transform: uppercase;
+    margin-top: 8px;
+    page-break-after: avoid;
+}
+
+
+/* META PANEL */
+.panel {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    page-break-inside: avoid;
+    margin-bottom: 10px;       /* tighter spacing below the panel */
+    min-height: 200px;        /* ensure consistent height for full image cover */
+    overflow: hidden;         /* hide any 1px rounding slivers */
+}
+
+.panel img {
+    width: 300px;
+    height: calc(100% + 2px); /* slight overfill to avoid subpixel gap */
+    object-fit: cover;     /* crop to fit without distortion */
+    display: block;
+    flex-shrink: 0;
+    align-self: stretch;   /* ensure flex item stretches with content column */
+}
+
+.panel .content {
+    flex: 1;
+    padding: 26px 36px;  /* subtle reduction to preserve pagination */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--bg);
+    gap: 14px;
+    align-self: stretch;      /* match image height */
+}
+
+.panel .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.panel .col {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.panel .col:last-child {
+    margin-right: 0;
+}
+
+.panel .col p {
+    margin: 0;
+}
+
+.panel .col p:first-child {
+    font-size: 16px;
+}
+
+.panel .col p:last-child {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.panel strong {
+    font-weight: bold;
+}
+
+/* STEPS */
+.steps .title {
+    font-weight: 500;
+    letter-spacing: 4%;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin: 14px 0;
+    font-size: 20px;
+    page-break-after: avoid;
+}
+
+.steps .step {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    page-break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+}
+
+.steps .stephead {
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    background-color: var(--bg);
+}
+
+.steps .tablewrap {
+    overflow-x: auto;
+    page-break-inside: avoid;
+}
+
+.steps table {
+    border: 1px solid var(--rule);
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.steps th,
+.steps td {
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.steps .single-yield-instr {
+    vertical-align: middle;
+    line-height: 1.2;
+}
+
+.steps thead th {
+    background-color: var(--bg);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1%;
+    color: var(--muted);
+}
+
+.steps thead th:not(:last-child) {
+    border-right: 1px solid var(--rule);
+}
+
+.steps .instr {
+    padding: 12px 16px;
+    page-break-inside: avoid;
+}
+
+.steps .instr .heading {
+    color: var(--accent);
+    margin: 0;
+}
+
+.steps .instr .instruction {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+    letter-spacing: 1%;
+    line-height: 1.2;
+}
+
+/* NUTRITION */
+.nutrition {
+    padding: 10px 0;
+    page-break-before: auto;
+}
+
+.nutrition .heading {
+    font-weight: 500;
+    letter-spacing: 4%;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-size: 20px;
+    page-break-after: avoid;
+}
+
+.nutrition .heading span {
+    font-size: 16px;
+    color: var(--accent);
+    margin-left: 10px;
+    font-weight: 400;
+    letter-spacing: 0%;
+    text-transform: none;
+}
+
+.nutrition .grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 100px; /* Leave space for footer */
+    page-break-inside: avoid;
+}
+
+.nutrition .card {
+    border: 1px solid var(--rule);
+    border-radius: var(--card-br);
+    page-break-inside: avoid;
+    overflow: hidden;              /* keep content within rounded border */
+}
+
+.nutrition .card h4 {
+    padding: 8px 12px;
+    font-size: 16px;
+    letter-spacing: 5%;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--muted);
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    margin: 0;
+    border-top-left-radius: var(--card-br);
+    border-top-right-radius: var(--card-br);
+}
+
+.nutrition .facts {
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 8px;
+    column-gap: 12px;
+    font-weight: 500;
+    word-wrap: break-word;
+    padding-right: 18px;           /* extra room for right-side values */
+}
+
+.nutrition .facts h5 {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap;      /* keep number and unit together (e.g., 3.5 g) */
+    text-align: right;        /* keep values inside the box edge */
+}
+
+/* Allow wrapping only for the first value (Calories) in the first card */
+.nutrition .card:first-child .facts h5:first-of-type {
+  white-space: normal;        /* permit wrap to show unit */
+  line-height: 1.1;
+}
+
+.nutrition .facts h6 {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.nutrition .facts .small {
+    font-weight: 400;
+    color: var(--muted);
+}
+
+/* FOOTER - The @page rule above handles PDF footer positioning and page numbering */
+
+
+
+/* Page numbers for debugging, if footer is used */
+.pageNumber::after {
+    content: counter(page);
+}
